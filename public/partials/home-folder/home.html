@@ -1,0 +1,52 @@
+<div class="container">
+
+  <h2>Eployee Table</h2> 
+
+	<label ng-hide = "hideEmployeeData">Employee Search : <input type="text" ng-model = "search"/></label>
+	<button type="button" ng-hide = "hideEmployeeData" ng-click="hideEmployeeData = true;" class="btn btn-primary">Add Employee</button>
+	<button type="button" ng-show = "hideEmployeeData" ng-click="saveNewEmplyee()" class="btn btn-success">Save Employee</button>   
+	<button type="button" ng-show = "hideEmployeeData" ng-click="hideEmployeeData = false;" class="btn btn btn-danger">Cancel</button>                                                                           
+  <div class="table-responsive">          
+	  <table class="table">
+	    <thead>
+	      <tr>
+	        <th>S.No</th>
+	        <th>Name</th>
+	        <th>Designation</th>
+	        <th>Date</th>
+	        <th>City</th>
+	      </tr>
+	    </thead>
+	    <tbody ng-hide = "hideEmployeeData" ng-repeat="employee in employeeData | filter : search">
+	      <tr>
+	        <td>{{$index + 1}}</td>
+	        <td><span ng-hide="editPosition == $index">{{employee.name}}</span>
+	        	<span ng-show="editPosition == $index"><input type="text" ng-model = "editEmp.name"/></span></td>
+	        <td><span ng-hide="editPosition == $index">{{employee.designation}}</span>
+	        	<span ng-show="editPosition == $index"><input type="text" ng-model = "editEmp.designation"/></span></td>
+	        <td><span ng-hide="editPosition == $index">{{employee.date}}</span>
+	        	<span ng-show="editPosition == $index"><input type="text" ng-model = "editEmp.date"/></span></td>
+	        <td><span ng-hide="editPosition == $index">{{employee.location}}</span>
+	        	<span ng-show="editPosition == $index"><input type="text" ng-model = "editEmp.location"/></span></td>
+
+		    <td><a href="" ng-hide="editPosition == $index" ng-click="editEmployeeData(employee, $index);">edit</a>
+		    <a href="" ng-show="editPosition == $index" ng-click="updateEmployeeData(editEmp, $index);">Update</a></td>
+		    <td><a href="" ng-click="employeeData.splice($index,1)">remove</a></td>
+	      </tr>
+	    </tbody>
+	    <tbody ng-show = "hideEmployeeData">
+	      <tr>
+	        <td>{{employeeData.length + 1}}</td>
+	        <td><input type="text" ng-model = "newEmp.name"/></td>
+	        <td><input type="text" ng-model = "newEmp.designation"/></td>
+	        <td><input type="text" ng-model = "newEmp.date"/></td>
+	        <td><input type="text" ng-model = "newEmp.location"/></td>
+	      </tr>
+	    </tbody>
+	  </table>
+  </div>
+
+	<button type="button" ng-hide = "hideEmployeeData"  ng-click="exportToExcel()" class="btn btn-warning">Export To Excel Sheet</button>
+	<button type="button" ng-hide = "hideEmployeeData"  ng-click="saveModData('msg', 'T:\Atul')" class="btn btn-info">Save Modified Data</button>
+
+</div>
